@@ -8,7 +8,10 @@ namespace Logic
     {
         
         public int ChanceOrder { get; set; }
+        public string Name { get; set; }
         public int PinsKnocked { get; set; }
+
+        
 
     }
 

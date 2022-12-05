@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Logic.Error;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Logic.FileManagement
@@ -9,6 +11,7 @@ namespace Logic.FileManagement
     {
         private string _filePath;
         private readonly string _validExtension = ".txt";
+        private List<Chance> _chances;
 
         public SourceManager(string filePath)
         {
@@ -31,30 +34,130 @@ namespace Logic.FileManagement
                 return false;
             }
 
+
             return true;
 
         }
 
 
+        public void SetChancesData()
+        {
+
+            try
+            {
+
+                TrySetChances();
+
+            }
+            catch (ManagedException mgEx)
+            {
+
+                var str = mgEx.Description;
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+
+
 
         public List<Chance> GetChances()
         {
-
-            throw new NotImplementedException();
-            
-
+            return this._chances;
+        }
 
 
+        private bool TrySetChances()
+        {
+
+            bool wasSuccessful = false;
+            try
+            {
+
+                var lstLines = TryGetLinesFromFile();
+                this._chances = GetChances(lstLines);
+                wasSuccessful = true;
+
+            }
+            catch (Exception ex)
+            {
+                throw new ManagedException(ManagedExceptionType.Convertion, ex.Message);
+            }
+            return wasSuccessful;
+        }
+
+
+
+        private List<string> TryGetLinesFromFile()
+        {
+            try
+            {
+                string[] readText = File.ReadAllLines(this._filePath);
+
+                List<string> result = new List<string>();
+                result.AddRange(readText);
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw new ManagedException(ManagedExceptionType.File, ex.Message);
+            }
 
 
         }
 
 
-        private Chance ConvertLine(string line)
-        {
 
-            throw new NotImplementedException();
-        
+        private List<Chance> GetChances(List<string> lstStrChances)
+        {
+            //var chances = lstStrChances.Select(t=>ConvertLineToChance(t)).ToList();
+
+            List<Chance> result = new List<Chance>();
+            int counter = 0;
+            foreach (var item in lstStrChances)
+            {
+                result.Add(ConvertLineToChance(item, counter));
+                counter++;
+            }
+
+            return result;
+        }
+
+
+        private Chance ConvertLineToChance(string line, int lineNumber)
+        {
+            string[] variables = line.Split(' ');
+
+            if (variables.Length != 2)
+            {
+                throw new ManagedException(ManagedExceptionType.Convertion, "Not two fields");
+            }
+
+            if (variables[1].ToLower() == "f")
+            {
+                variables[1] = "0";
+            }
+
+            try
+            {
+
+                Chance chance = new Chance();
+                chance.ChanceOrder = lineNumber;
+                chance.PinsKnocked = int.Parse(variables[1]);
+                chance.Name = variables[0];
+                return chance;
+            }
+            catch (Exception ex)
+            {
+                throw new ManagedException(ManagedExceptionType.Convertion, ex.Message);
+            }
+
+
         }
 
 
