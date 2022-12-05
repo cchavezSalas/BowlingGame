@@ -16,7 +16,7 @@ namespace Test
 
             var game = new Game();
 
-
+            //todo: set tests
 
             Assert.Pass();
         }
