@@ -1,6 +1,6 @@
 # BowlingGame
 <br/>
-In order to run this App you need to install the .net Runtime<br/>
+In order to run this App you need to install the .net Runtime in Windows<br/>
 go to : https://dotnet.microsoft.com/en-us/download/dotnet/3.1<br/>
 install the  x64 or x86 package:<br/>
 https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-3.1.31-windows-x64-installer<br/>
