@@ -47,6 +47,7 @@ namespace Logic.FileManagement
             {
 
                 TrySetChances();
+                ValidateChanceData();
 
             }
             catch (ManagedException mgEx)
@@ -62,6 +63,22 @@ namespace Logic.FileManagement
 
         }
 
+
+        private void ValidateChanceData()
+        {
+            this._chances.ForEach(ch =>
+            {
+
+                if (!RulesValidator.ValidateChance(ch))
+                {
+                    throw new ManagedException(ManagedExceptionType.NotValidInfo, "Not a valid chance");
+                }
+
+            });
+
+
+
+        }
 
 
 
@@ -121,7 +138,12 @@ namespace Logic.FileManagement
             int counter = 0;
             foreach (var item in lstStrChances)
             {
-                result.Add(ConvertLineToChance(item, counter));
+                var chance = ConvertLineToChance(item, counter);
+
+                
+                result.Add(chance);
+
+
                 counter++;
             }
 

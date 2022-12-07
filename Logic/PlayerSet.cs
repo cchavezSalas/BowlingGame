@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic
 {
-    internal class PlayerSet
+    public class PlayerSet
     {
 
         public string PlayerName { get; set; }

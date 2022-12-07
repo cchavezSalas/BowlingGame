@@ -8,7 +8,8 @@ namespace Logic.Error
     public enum ManagedExceptionType
     { 
         Convertion,
-        File
+        File,
+        NotValidInfo
     }
 
     public class ManagedException:Exception
@@ -16,12 +17,12 @@ namespace Logic.Error
         public string Description { get; set; }
         public ManagedExceptionType Type { get; set; }
 
-        public ManagedException()
+        public ManagedException():base()
         {
             this.Description = this.Message;
         }
 
-        public ManagedException(ManagedExceptionType type,  string message)
+        public ManagedException(ManagedExceptionType type,  string message):base(message)
         {
             this.Type = type;
             this.Description = message;

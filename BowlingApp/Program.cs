@@ -7,8 +7,19 @@ namespace BowlingApp
     {
         static void Main(string[] args)
         {
-            var t1 = new Game();
-            t1.Start(); 
+
+
+            if (args.Length == 1)
+            {
+                string filepath = args[0];
+                Console.WriteLine(filepath);
+                new Application(filepath).Start();
+            }
+            else {
+                Console.WriteLine("Please provide a filepath to process");
+            }
+            Console.WriteLine("Please press Enter to continue");
+            Console.ReadLine();
         }
     }
 }
