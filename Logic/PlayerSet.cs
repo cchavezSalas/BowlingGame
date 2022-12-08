@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Logic
 {
+    /// <summary>
+    /// Groups a player with his/her raw chances (given from input)
+    /// </summary>
     public class PlayerSet
     {
 

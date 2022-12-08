@@ -6,6 +6,10 @@ using System.Text;
 
 namespace Logic
 {
+    /// <summary>
+    /// Main class , should be called from front classes Ex (Console App)
+    /// Manages all workflow
+    /// </summary>
     public class Application
     {
         private string _filePath;
@@ -15,6 +19,9 @@ namespace Logic
 
         }
 
+        /// <summary>
+        /// Starts Application
+        /// </summary>
         public void Start()
         {
             try
@@ -39,12 +46,11 @@ namespace Logic
                 //calculate scoring of all games
                 lstGames.ForEach(g => g.Calculate());
 
-                //Print Game resultos
+                //Print Game results
                 Printer.Printer printer = new Printer.Printer(lstGames);
                 printer.Generate();
                 Printer.Printer.PrintToConsole(printer.GetPrintableText());
 
-                
 
             }
 

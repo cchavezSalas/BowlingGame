@@ -4,7 +4,9 @@ using System.Text;
 
 namespace Logic.Error
 {
-
+    /// <summary>
+    /// Types of control Exception
+    /// </summary>
     public enum ManagedExceptionType
     { 
         Convertion,
@@ -12,6 +14,9 @@ namespace Logic.Error
         NotValidInfo
     }
 
+    /// <summary>
+    /// Control Exception
+    /// </summary>
     public class ManagedException:Exception
     {
         public string Description { get; set; }

@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Logic.Error;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using Logic.Error;
 
 namespace Logic.ConversionBowlingTypes
 {
@@ -14,6 +12,13 @@ namespace Logic.ConversionBowlingTypes
     public class BowlingTypeConversor
     {
 
+        /// <summary>
+        /// Converts collection of Chances to List PlayerSet
+        /// This method converts all raw chances given in input file
+        /// and Makes a PlayerSet (PlayerName + player chances)
+        /// </summary>
+        /// <param name="lstChances"></param>
+        /// <returns>A List of PlayerSet</returns>
         public List<PlayerSet> GetPlayerSetsByChances(List<Chance> lstChances)
         {
             List<PlayerSet> lstPlayerSets = new List<PlayerSet>();
@@ -31,6 +36,12 @@ namespace Logic.ConversionBowlingTypes
         }
 
 
+        /// <summary>
+        /// Instanciates a PlayerSet with given Name and Chances
+        /// </summary>
+        /// <param name="name">Name of player</param>
+        /// <param name="lstChances">chances of player</param>
+        /// <returns></returns>
         private  PlayerSet  GetPlayerSetByNameListChance(string name, List<Chance> lstChances)
         {
 
@@ -54,6 +65,13 @@ namespace Logic.ConversionBowlingTypes
 
 
 
+
+        /// <summary>
+        /// Converts a PlayerSet to a List of Frames
+        /// </summary>
+        /// <param name="playerSet"></param>
+        /// <returns>a list of Frames</returns>
+        /// <exception cref="ManagedException"></exception>
         public List<Frame> GetFramesByPlayerSet(PlayerSet playerSet)
         {
             List<Frame> lstFrames = new List<Frame>();
@@ -79,7 +97,6 @@ namespace Logic.ConversionBowlingTypes
 
                 if (currentFrame == maxFrame) //the last frame
                 {
-                    //LastFrame frame = new LastFrame(currentFrame,chancei.PinsKnocked, );
 
                     var pinsKnockedChancei1 = lstChances[i + 1] != null ? lstChances[i + 1].PinsKnocked : -1;
                     var pinsKnockedChancei2 = lstChances[i + 2] != null ? lstChances[i + 2].PinsKnocked : -1;
@@ -146,7 +163,11 @@ namespace Logic.ConversionBowlingTypes
         }
 
 
-
+        /// <summary>
+        /// Given a List of PlayerSet, converts to a List of Games
+        /// </summary>
+        /// <param name="lstPlayerSet"></param>
+        /// <returns></returns>
         public List<Game> GetGamesByPlayerSets(List<PlayerSet> lstPlayerSet)
         {
             List<Game> lstGames = new List<Game>();

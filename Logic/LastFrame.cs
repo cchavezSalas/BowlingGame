@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Logic
 {
+    /// <summary>
+    /// This class is an extension from Frame class
+    /// represents the last frame of the game
+    /// </summary>
     public class LastFrame : Frame
     {
         public int Shot03 { get; }
@@ -13,6 +17,11 @@ namespace Logic
             Shot03 = shot03;
         }
 
+        /// <summary>
+        /// Gets the Printable Text for Pinfalls for this frame
+        /// </summary>
+        /// <param name="separator"></param>
+        /// <returns></returns>
         public override string GetPrintablePinfalls(char separator) 
         {
             string shot1Str = this.Shot01 == 10 ? "X" : this.Shot01.ToString();
@@ -21,6 +30,12 @@ namespace Logic
             return shot1Str + separator + shot2Str + separator + shot3Str;
         }
 
+
+        /// <summary>
+        /// Gets the printable score text for this frame
+        /// </summary>
+        /// <param name="separator"></param>
+        /// <returns></returns>
         public override string GetPrintableScore(char separator)
         {
             return base.GetPrintableScore(separator);

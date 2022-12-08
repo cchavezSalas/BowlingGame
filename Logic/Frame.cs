@@ -11,6 +11,9 @@ namespace Logic
         None
     }
 
+    /// <summary>
+    /// Represents a "Frame" of Bowling
+    /// </summary>
     public class Frame
     {
         string Name { get; }
@@ -30,16 +33,30 @@ namespace Logic
             Name = name;
         }
 
+        /// <summary>
+        /// Sets this frame score
+        /// </summary>
+        /// <param name="punctuation"></param>
         public void SetFramePunctuation(int punctuation)
         {
             FramePunctuation = punctuation;
         }
 
+        /// <summary>
+        /// Sets Current punctuation (sum of all score to this frame)
+        /// </summary>
+        /// <param name="punctuation"></param>
         public void SetCurrentPunctuation(int punctuation)
         {
             CurrentPunctuation = punctuation;
         }
 
+
+        /// <summary>
+        /// Gets the type of frame:
+        /// Spare, Half Spare and None
+        /// </summary>
+        /// <returns>Type of Frame</returns>
         public SpareType GetSpareType()
         {
             SpareType result = SpareType.None;
@@ -57,7 +74,11 @@ namespace Logic
             return result;
         }
 
-
+        /// <summary>
+        /// Gets the text of Pinfalls for this frame
+        /// </summary>
+        /// <param name="separator"></param>
+        /// <returns></returns>
         public virtual string GetPrintablePinfalls(char separator)
         {
             string result = "";
@@ -81,26 +102,18 @@ namespace Logic
         }
 
 
+        /// <summary>
+        /// Get the text for printing the score
+        /// </summary>
+        /// <param name="separator"></param>
+        /// <returns></returns>
         public virtual string GetPrintableScore(char separator)
         {
-            //if (this.Ordinal == 9)
-            //{
-            //    return this.CurrentPunctuation.ToString();
-            //}
-            //else
-            //{
-            //    return separator.ToString()+separator.ToString()+ this.CurrentPunctuation.ToString();
-            //}
 
             return separator.ToString() + separator.ToString() + this.CurrentPunctuation.ToString();
         }
 
 
-        public int Score {
-            get {
-                return 0;
-            }
-        }
 
     }
 }

@@ -7,6 +7,9 @@ using System.Text;
 
 namespace Logic.FileManagement
 {
+    /// <summary>
+    /// Process all raw data from input file
+    /// </summary>
     public class SourceManager
     {
         private string _filePath;
@@ -19,7 +22,10 @@ namespace Logic.FileManagement
         }
 
 
-
+        /// <summary>
+        /// Checks if file has right extension
+        /// </summary>
+        /// <returns></returns>
         public bool IsValidFile()
         {
 
@@ -39,7 +45,9 @@ namespace Logic.FileManagement
 
         }
 
-
+        /// <summary>
+        /// Tries to extract Chance (name and knockedpins)
+        /// </summary>
         public void SetChancesData()
         {
 
@@ -64,6 +72,10 @@ namespace Logic.FileManagement
         }
 
 
+        /// <summary>
+        /// Checks if a chance has right number of pins (ex: number not >10)
+        /// </summary>
+        /// <exception cref="ManagedException"></exception>
         private void ValidateChanceData()
         {
             this._chances.ForEach(ch =>
@@ -81,13 +93,20 @@ namespace Logic.FileManagement
         }
 
 
-
+        /// <summary>
+        /// Returns All Raw Chances from input file
+        /// </summary>
+        /// <returns></returns>
         public List<Chance> GetChances()
         {
             return this._chances;
         }
 
-
+        /// <summary>
+        /// Takes all Lines from file and sets in a list<string>
+        /// </summary>
+        /// <returns>true if success</returns>
+        /// <exception cref="ManagedException"></exception>
         private bool TrySetChances()
         {
 
@@ -108,7 +127,11 @@ namespace Logic.FileManagement
         }
 
 
-
+        /// <summary>
+        /// Read Lines from File
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ManagedException"></exception>
         private List<string> TryGetLinesFromFile()
         {
             try
@@ -129,7 +152,11 @@ namespace Logic.FileManagement
         }
 
 
-
+        /// <summary>
+        /// Converts all Chances from a given list of lines
+        /// </summary>
+        /// <param name="lstStrChances"></param>
+        /// <returns>List of Chances</returns>
         private List<Chance> GetChances(List<string> lstStrChances)
         {
             //var chances = lstStrChances.Select(t=>ConvertLineToChance(t)).ToList();
@@ -139,7 +166,6 @@ namespace Logic.FileManagement
             foreach (var item in lstStrChances)
             {
                 var chance = ConvertLineToChance(item, counter);
-
                 
                 result.Add(chance);
 
@@ -151,6 +177,15 @@ namespace Logic.FileManagement
         }
 
 
+
+        /// <summary>
+        /// Converts a line (from input) to a Chance
+        /// Also translates an F to 0
+        /// </summary>
+        /// <param name="line">line</param>
+        /// <param name="lineNumber">index of line</param>
+        /// <returns>a Chance object</returns>
+        /// <exception cref="ManagedException"></exception>
         private Chance ConvertLineToChance(string line, int lineNumber)
         {
             string[] variables = line.Split(' ');

@@ -6,6 +6,11 @@ using System.Text;
 
 namespace Logic
 {
+    /// <summary>
+    /// Represents a Game
+    /// a Game has a Player and a list of Frames
+    /// This class manages all the score of its frames and its own score
+    /// </summary>
     public class Game
     {
         public string Player { get; private set; }
@@ -21,24 +26,35 @@ namespace Logic
             Player = player;
         }
     
-        public void Start() { Console.WriteLine("We are playing"); }
-
+        /// <summary>
+        /// Generate scores
+        /// </summary>
         public void Calculate()
         {
             this.CalculateScores();
             this.CalculateCurrentScores();
         }
 
+
+        /// <summary>
+        /// Get all the "Pinfalls" Text row
+        /// </summary>
+        /// <param name="separator"></param>
+        /// <returns></returns>
         public string GetPinfallsText(char separator)
         {
 
             StringBuilder sb = new StringBuilder();
             this.LstFrames.OrderBy(f => f.Ordinal).ToList().ForEach(f1 => { sb.Append(f1.GetPrintablePinfalls(separator)
-                //+separator.ToString()
                 ); });
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Get all the Score Text row
+        /// </summary>
+        /// <param name="separator"></param>
+        /// <returns></returns>
         public string GetScoreText(char separator)
         {
             StringBuilder sb = new StringBuilder();
@@ -46,6 +62,11 @@ namespace Logic
             return sb.ToString();
         }
 
+
+        /// <summary>
+        /// Calculate score for each frame
+        /// </summary>
+        /// <exception cref="ManagedException"></exception>
         private void CalculateScores()
         {
             int index = 0;
@@ -56,18 +77,17 @@ namespace Logic
                 {
                     case SpareType.Full:
                         {
-                            SetFullFramePunctuation (frame, LstFrames, index);
+                            SetFullFrameScore (frame, LstFrames, index);
                         }
                         break;
                     case SpareType.Half:
                         {
-                            SetHalfFramePunctuation(frame, LstFrames, index);
+                            SetHalfFrameScore(frame, LstFrames, index);
                         }
                         break;
                     case SpareType.None:
                         {
-                            SetFramePunctuation(frame, index);
-                            //frame.SetFramePunctuation(frame.Shot01 + frame.Shot02);
+                            SetFrameScore(frame, index);        
                         }
                         break;
                     default:
@@ -81,6 +101,10 @@ namespace Logic
 
         }
 
+
+        /// <summary>
+        /// Calculate Current Scores for each frame
+        /// </summary>
         private void CalculateCurrentScores()
         {
             foreach (var frame in LstFrames)
@@ -91,6 +115,12 @@ namespace Logic
             this.Score = LstFrames.LastOrDefault().CurrentPunctuation;
         }
 
+        /// <summary>
+        /// Calculate Recursive Current score 
+        /// </summary>
+        /// <param name="lstFrames">list for frames</param>
+        /// <param name="index"> current index</param>
+        /// <returns></returns>
         private int GetRecursiveScore(List<Frame> lstFrames, int index)
         {
             if (index > 0)
@@ -102,8 +132,12 @@ namespace Logic
             }
         }
 
-
-        private void SetFramePunctuation(Frame frame, int index)
+        /// <summary>
+        /// Sets "None" Frame score
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <param name="index"></param>
+        private void SetFrameScore(Frame frame, int index)
         {
 
             if (index < 9)
@@ -117,7 +151,13 @@ namespace Logic
             }
         }
 
-        private void SetHalfFramePunctuation(Frame frame, List<Frame> lstFrames, int index)
+        /// <summary>
+        /// Sets score for a Half Spare Frame
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <param name="lstFrames"></param>
+        /// <param name="index"></param>
+        private void SetHalfFrameScore(Frame frame, List<Frame> lstFrames, int index)
         {
             if (index < 9)
             {
@@ -134,18 +174,23 @@ namespace Logic
 
         }
 
-        private void SetFullFramePunctuation(Frame frame, List<Frame> lstFrames, int index)
+        /// <summary>
+        /// Sets Score for a Full Spare Frame
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <param name="lstFrames"></param>
+        /// <param name="index"></param>
+        /// <exception cref="ManagedException"></exception>
+        private void SetFullFrameScore(Frame frame, List<Frame> lstFrames, int index)
         {
             if (index < 8)
             {
                 var punctuationAdd = lstFrames[index + 1].Shot01;
-                    //+ lstFrames[index + 1].Shot02;
+                    
                 int punctuationAdd2 = 0; 
                 if (lstFrames[index + 1].Shot01 == 10)
                 {
                     punctuationAdd2 = lstFrames[index + 2].Shot01;
-                        //+ lstFrames[index + 2].Shot02;
-                    //only  if its 10 add next punctuation
                 }
                 else
                 {
@@ -164,7 +209,6 @@ namespace Logic
                 {
                     punctuationAdd2 = nextFrame.Shot02;
                 }
-                
 
                 frame.SetFramePunctuation(frame.Shot01 + frame.Shot02 + punctuationAdd + punctuationAdd2);
             }

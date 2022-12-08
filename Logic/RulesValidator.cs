@@ -4,8 +4,16 @@ using System.Text;
 
 namespace Logic
 {
+    /// <summary>
+    /// Several rules to validate
+    /// </summary>
     public static class RulesValidator
     {
+        /// <summary>
+        /// Controls that whe have a valid chance between 0 and 10
+        /// </summary>
+        /// <param name="chance"></param>
+        /// <returns></returns>
         public static bool ValidateChance(Chance chance)
         {
             bool result = true;
@@ -16,6 +24,12 @@ namespace Logic
             return result;
         }
 
+        /// <summary>
+        /// True if a Frame is valid (not for lastframe)
+        /// </summary>
+        /// <param name="pinsKnockedShot01"></param>
+        /// <param name="pinsKnockedShot02"></param>
+        /// <returns></returns>
         public static bool IsValidFrame(int pinsKnockedShot01, int pinsKnockedShot02)
         {
             bool valid = true;
@@ -116,7 +130,11 @@ namespace Logic
         }
 
 
-
+        /// <summary>
+        /// Validates Game
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
         public static bool IsValidGame(Game game)
         {
             bool result = true;

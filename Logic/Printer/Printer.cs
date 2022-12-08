@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Logic.Printer
 {
+    /// <summary>
+    /// Manages text generation and print
+    /// </summary>
     public class Printer
     {
 
@@ -14,17 +17,28 @@ namespace Logic.Printer
         private StringBuilder _textSaver = new StringBuilder();
         private List<Game> _lstGames;
 
-
+        /// <summary>
+        /// prints line to console
+        /// </summary>
+        /// <param name="text"></param>
         public static void PrintLineToConsole(string text)
         { 
             Console.WriteLine(text);
         }
 
+        /// <summary>
+        /// prints text to console
+        /// </summary>
+        /// <param name="text"></param>
         public static void PrintToConsole(string text)
         {
             Console.Write(text);
         }
 
+        /// <summary>
+        /// Saves text to variable
+        /// </summary>
+        /// <param name="text"></param>
         private void SetText(string text)
         {
             //Console.Write(text);
@@ -36,11 +50,19 @@ namespace Logic.Printer
             this._lstGames = lstGames;
         }
 
+        /// <summary>
+        /// Generates (saves in local variable) the output for all games
+        /// </summary>
         public void Generate()
         {
             SetText(this._lstGames);
         }
 
+
+        /// <summary>
+        /// Saves in local variable output for a given game
+        /// </summary>
+        /// <param name="game"></param>
         private void SetText(Game game)
         {
 
@@ -50,7 +72,11 @@ namespace Logic.Printer
             
         }
 
-        public void SetText(List<Game> lstGames)
+        /// <summary>
+        /// Generates (saves in local variable) the output for all games called from Generate
+        /// </summary>
+        /// <param name="lstGames"></param>
+        private void SetText(List<Game> lstGames)
         {
             SetTextHeader();
             lstGames.OrderBy(g => g.Player).ToList().ForEach(g1=>SetText(g1));
@@ -58,6 +84,9 @@ namespace Logic.Printer
         }
 
 
+        /// <summary>
+        /// Sets in output the Text header (Frame 1 .... 10)
+        /// </summary>
         private void SetTextHeader()
         {
             SetText("Frame"+_separator+_separator);
@@ -77,6 +106,11 @@ namespace Logic.Printer
 
         }
 
+
+        /// <summary>
+        /// Gets the Generated output
+        /// </summary>
+        /// <returns></returns>
         public string GetPrintableText()
         { 
             return _textSaver.ToString();
