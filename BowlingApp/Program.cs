@@ -14,7 +14,6 @@ namespace BowlingApp
                 string filepath = args[0];
                 Console.WriteLine(filepath);
                 new Application(filepath).Start();
-                //test machine
             }
             else {
                 Console.WriteLine("Please provide a filepath to process");
